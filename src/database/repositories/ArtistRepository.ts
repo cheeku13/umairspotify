@@ -1,4 +1,4 @@
-import { Artist } from '@appTypes/index';
+import { Artist } from '@apptypes/index';
 import { BaseRepository, DatabaseRow } from './BaseRepository';
 import { artistSelectSql } from './sql';
 

@@ -1,4 +1,4 @@
-import { Album } from '@appTypes/index';
+import { Album } from '@apptypes/index';
 import { BaseRepository, DatabaseRow } from './BaseRepository';
 import { albumSelectSql } from './sql';
 

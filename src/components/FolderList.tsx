@@ -84,7 +84,7 @@ const FolderList: React.FC<Props> = ({ onPlayTrack }) => {
       {renderBreadcrumbs()}
       <FlatList
         data={listData}
-        keyExtractor={(item, index) => `${item.type}-${item.type === 'folder' ? item.data.fullPath : item.data.id}`}
+        keyExtractor={(item, index) => `${item.type}-${item.type === 'folder' ? (item.data as any).fullPath : (item.data as any).id}`}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
@@ -93,8 +93,8 @@ const FolderList: React.FC<Props> = ({ onPlayTrack }) => {
           } else {
             return (
               <SongCard
-                track={item.data}
-                onPress={() => onPlayTrack(item.data.id)}
+                track={item.data as any}
+                onPress={() => onPlayTrack((item.data as any).id)}
               />
             );
           }

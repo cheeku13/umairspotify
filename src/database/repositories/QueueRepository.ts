@@ -1,4 +1,4 @@
-import { QueueState, defaultQueueState } from '@appTypes/index';
+import { QueueState, defaultQueueState } from '@apptypes/index';
 import { BaseRepository } from './BaseRepository';
 
 export class QueueRepository extends BaseRepository {

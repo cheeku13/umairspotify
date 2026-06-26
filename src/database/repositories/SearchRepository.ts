@@ -1,4 +1,4 @@
-import { SearchResult } from '@appTypes/index';
+import { SearchResult } from '@apptypes/index';
 import { BaseRepository } from './BaseRepository';
 import { TrackRepository } from './TrackRepository';
 import { AlbumRepository } from './AlbumRepository';

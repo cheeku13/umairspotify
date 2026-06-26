@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { ListeningInsights, TopItem } from '@appTypes/index';
+import { ListeningInsights, TopItem } from '@apptypes/index';
 import { databaseService } from '../services/database';
 import { metadataService } from '../services/metadata';
 import { colors, shadows } from '../theme/colors';

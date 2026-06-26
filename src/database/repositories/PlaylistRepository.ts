@@ -1,4 +1,4 @@
-import { Playlist, SmartRule, Track } from '@appTypes/index';
+import { Playlist, SmartRule, Track } from '@apptypes/index';
 import { container } from '../../core/ServiceContainer';
 import { TrackRepository } from './TrackRepository';
 import { BaseRepository, DatabaseRow, DatabaseValue } from './BaseRepository';

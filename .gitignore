@@ -3,7 +3,6 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
 yarn.lock
 
 # Python
@@ -42,6 +41,7 @@ wheels/
 # IDE
 .vscode/
 .idea/
+.vs/
 *.swp
 *.swo
 *~
@@ -69,3 +69,6 @@ coverage/
 /downloads/
 /cache/
 *.log
+
+# Harmony fixer backups
+_harmony_backups/

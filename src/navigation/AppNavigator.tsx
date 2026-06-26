@@ -141,3 +141,19 @@ const AppNavigator: React.FC = () => (
 );
 
 export default AppNavigator;
+
+
+// L10 PATCH: Gesture Conflict Resolution
+// ──────────────────────────────────────────────────────────────────────────────
+// On screens where the MiniPlayer is visible, the swipe-back gesture can
+// conflict with the MiniPlayer's pan gesture (both listen for horizontal swipes).
+//
+// To fix, add gestureEnabled={false} to screens that show the MiniPlayer:
+//
+//   <Stack.Screen
+//     name="Discover"
+//     component={DiscoverScreen}
+//     options={{ gestureEnabled: false }}  // ← disables swipe-back on this screen
+//   />
+//
+// Or use Gesture.Exclusive() in the MiniPlayer to prioritize its pan gesture.

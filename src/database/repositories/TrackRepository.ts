@@ -1,4 +1,4 @@
-import { Track } from '@appTypes/index';
+import { Track } from '@apptypes/index';
 import { BaseRepository, DatabaseRow } from './BaseRepository';
 import { trackSelectSql } from './sql';
 

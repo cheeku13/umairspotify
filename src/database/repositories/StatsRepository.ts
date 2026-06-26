@@ -1,4 +1,4 @@
-import { ListeningInsights, TopItem } from '@appTypes/index';
+import { ListeningInsights, TopItem } from '@apptypes/index';
 import { BaseRepository, DatabaseRow } from './BaseRepository';
 
 export class StatsRepository extends BaseRepository {

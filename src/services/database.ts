@@ -1,4 +1,4 @@
-import { Track, Album, Artist, Playlist, QueueState, SearchResult, Settings, LibrarySnapshot, ListeningInsights } from '@appTypes/index';
+import { Track, Album, Artist, Playlist, QueueState, SearchResult, Settings, LibrarySnapshot, ListeningInsights } from '@apptypes/index';
 import { initializeDatabase, getDatabase } from '../database';
 import { container } from '../core/ServiceContainer';
 import { TrackRepository } from '../database/repositories/TrackRepository';
@@ -94,7 +94,7 @@ class DatabaseService {
     return container.resolve<PlaylistRepository>('PlaylistRepository').getPlaylists();
   }
 
-  async createPlaylist(name: string, description = '', isSmart = false, smartRules: import('@appTypes/index').SmartRule[] = []): Promise<Playlist> {
+  async createPlaylist(name: string, description = '', isSmart = false, smartRules: import('@apptypes/index').SmartRule[] = []): Promise<Playlist> {
     return container.resolve<PlaylistRepository>('PlaylistRepository').createPlaylist(name, description, isSmart, smartRules);
   }
 

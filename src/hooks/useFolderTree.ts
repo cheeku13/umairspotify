@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from 'react';
-import { Track } from '@appTypes/index';
+import { Track } from '@apptypes/index';
 import { useMusicStore } from '@store/musicStore';
 
 export interface FolderNode {

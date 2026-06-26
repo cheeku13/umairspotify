@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import {
   View,
   StyleSheet,
@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { SearchBar, SongCard, AlbumCard } from '@components/index';
 import { useMusicStore } from '@store/musicStore';
-import { Track } from '@appTypes/index';
+import { Track } from '@apptypes/index';
 import { databaseService } from '../services/database';
 import { useDebounce } from '../hooks/useDebounce';
 import LinearGradient from 'react-native-linear-gradient';
@@ -36,6 +36,7 @@ const DiscoverScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     toggleFavorite,
     setCurrentTrackId,
     setIsPlaying,
+    playTrack,
   } = useMusicStore();
 
   useEffect(() => {
@@ -80,18 +81,18 @@ const DiscoverScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }, [playTrack]);
 
   const suggestedAlbums = useMemo(() => {
-    const uniqueAlbums = Array.from(new Set(tracks.map(t => t.albumId).filter(Boolean)));
-    return tracks.filter(t => uniqueAlbums.includes(t.albumId)).slice(0, 10);
+    const uniqueAlbums = Array.from(new Set(tracks.map(t => t.albumTitle).filter(Boolean)));
+    return tracks.filter(t => uniqueAlbums.includes(t.albumTitle)).slice(0, 10);
   }, [tracks]);
 
   const trendingAlbums = useMemo(() => {
-    const uniqueAlbums = Array.from(new Set(tracks.map(t => t.album).filter(Boolean)));
-    return uniqueAlbums.slice(0, 5).map(album => {
-      const albumTracks = tracks.filter(t => t.album === album);
+    const uniqueAlbums = Array.from(new Set(tracks.map(t => t.albumTitle).filter(Boolean)));
+    return uniqueAlbums.slice(0, 5).map((album) => {
+      const albumTracks = tracks.filter(t => t.albumTitle === album);
       return {
         id: album || 'unknown',
         title: album || 'Unknown Album',
-        artist: albumTracks[0]?.artist || 'Various Artists',
+        artist: albumTracks[0]?.artistName || 'Various Artists',
         artworkUri: albumTracks[0]?.artworkUri || '',
         trackCount: albumTracks.length,
       };
@@ -149,10 +150,9 @@ const DiscoverScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                   <SongCard
                     key={item.id}
                     track={item}
-                    isPlaying={playback.currentTrackId === item.id && playback.status === 'playing'}
+                    isPlaying={currentTrackId === item.id && isPlaying}
                     onPress={() => handleTrackPress(item)}
                     onFavoritePress={() => toggleFavorite(item.id, !item.isFavorite)}
-                    artworkUri={item.artworkUri || ''}
                   />
                 ))
               ) : (
@@ -170,14 +170,14 @@ const DiscoverScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                     activeOpacity={0.9}
                     onPress={() => handleTrackPress(heroTrack)}
                   >
-                    <Image source={{ uri: heroTrack.artworkUri }} style={styles.heroArtwork} />
+                    <Image source={{ uri: heroTrack.artworkUri || '' }} style={styles.heroArtwork} />
                     <LinearGradient
-                      colors={['transparent', 'rgba(0,0,0,0.8)']}
+                      colors={["transparent", 'rgba(0,0,0,0.8)']}
                       style={styles.heroOverlay}
                     >
                       <Text style={styles.heroSubtitle}>FEATURED ALBUM</Text>
-                      <Text style={styles.heroTitle} numberOfLines={1}>{heroTrack.album}</Text>
-                      <Text style={styles.heroArtist}>{heroTrack.artist}</Text>
+                      <Text style={styles.heroTitle} numberOfLines={1}>{heroTrack.albumTitle}</Text>
+                      <Text style={styles.heroArtist}>{heroTrack.artistName}</Text>
                     </LinearGradient>
                   </TouchableOpacity>
                 </View>
@@ -192,7 +192,7 @@ const DiscoverScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                       <View key={track.id} style={{ width: 300, marginRight: -10 }}>
                         <SongCard
                           track={track}
-                          isPlaying={playback.currentTrackId === track.id && playback.status === 'playing'}
+                          isPlaying={currentTrackId === track.id && isPlaying}
                           onPress={() => handleTrackPress(track)}
                         />
                       </View>

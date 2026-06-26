@@ -13,7 +13,7 @@ import Animated, {
   withRepeat,
   withSequence,
 } from 'react-native-reanimated';
-import { Track } from '@appTypes/index';
+import { Track } from '@apptypes/index';
 import { BlurView } from '@react-native-community/blur';
 import { Play, Pause, ChevronUp } from 'lucide-react-native';
 import { colors, shadows } from '../theme/colors';
@@ -79,9 +79,9 @@ const MiniPlayer: React.FC<MiniPlayerProps> = ({
         <View style={styles.content}>
           {/* Album Art */}
           <View style={styles.artworkContainer}>
-            {track.albumArtPath ? (
+            {track.artworkUri ? (
               <Image
-                source={{ uri: track.albumArtPath }}
+                source={{ uri: track.artworkUri }}
                 style={styles.artwork}
               />
             ) : (

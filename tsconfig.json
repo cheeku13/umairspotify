@@ -2,9 +2,11 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "lib": ["ES2020"],
-    "jsx": "react",
-    "moduleResolution": "node",
+    "lib": [
+      "ES2020"
+    ],
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
     "allowJs": true,
     "strict": true,
     "esModuleInterop": true,
@@ -16,14 +18,32 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@screens/*": ["src/screens/*"],
-      "@components/*": ["src/components/*"],
-      "@services/*": ["src/services/*"],
-      "@store/*": ["src/store/*"],
-      "@utils/*": ["src/utils/*"],
-      "@appTypes/*": ["src/types/*"]
+      "@screens/*": [
+        "src/screens/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@apptypes/*": [
+        "src/types/*"
+      ]
     }
   },
-  "include": ["src", "index.js"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src",
+    "index.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

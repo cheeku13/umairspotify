@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Dimensions, Scr
 import Animated, { useAnimatedStyle, withSpring, useSharedValue } from 'react-native-reanimated';
 import { BlurView } from '@react-native-community/blur';
 import { useMusicStore } from '@store/musicStore';
-import { Track } from '@appTypes/index';
+import { Track } from '@apptypes/index';
 import { lyricsService, LyricLine } from '@services/lyrics';
 import { colors } from '../theme/colors';
 import { ChevronDown, Mic2 } from 'lucide-react-native';

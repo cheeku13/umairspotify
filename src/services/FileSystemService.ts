@@ -1,5 +1,5 @@
 import RNFS from 'react-native-fs';
-import { ImportCandidate } from '@appTypes/index';
+import { ImportCandidate } from '@apptypes/index';
 import { metadataService, supportedExtensions } from './metadata';
 import { databaseService } from './database';
 import { appEventBus } from '../core/EventBus';

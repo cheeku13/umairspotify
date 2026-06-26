@@ -2,31 +2,5 @@
   "name": "HarmonyPlayer",
   "displayName": "Harmony Player",
   "version": "1.0.0",
-  "description": "Premium offline-first music player with Spotify-like experience",
-  "expo": {
-    "name": "HarmonyPlayer",
-    "slug": "harmony-player",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTabletMode": true
-    },
-    "android": {
-      "package": "com.harmony",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#121212"
-      },
-      "permissions": [
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "INTERNET"
-      ]
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
-  }
+  "description": "Premium offline-first music player with Spotify-like experience"
 }

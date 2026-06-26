@@ -1,4 +1,4 @@
-import { QueueState, RepeatMode, defaultQueueState } from '@appTypes/index';
+import { QueueState, RepeatMode, defaultQueueState } from '@apptypes/index';
 import { databaseService } from './database';
 import { appEventBus } from '../core/EventBus';
 

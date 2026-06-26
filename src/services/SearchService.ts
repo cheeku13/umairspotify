@@ -1,5 +1,5 @@
 import { getDatabase } from '../database';
-import { SearchResult } from '@appTypes/index';
+import { SearchResult } from '@apptypes/index';
 
 export class SearchService {
   static search(query: string, limit = 50): SearchResult {

@@ -1,4 +1,4 @@
-jest.mock('react-native-quick-sqlite', () => ({
+jest.mock('@op-engineering/op-sqlite', () => ({
   open: jest.fn(() => ({
     transaction: (callback: Function) => callback({ execute: jest.fn() }),
     execute: jest.fn()

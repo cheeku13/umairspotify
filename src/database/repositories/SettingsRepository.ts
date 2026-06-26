@@ -1,4 +1,4 @@
-import { Settings, defaultSettings } from '@appTypes/index';
+import { Settings, defaultSettings } from '@apptypes/index';
 import { BaseRepository } from './BaseRepository';
 
 export class SettingsRepository extends BaseRepository {

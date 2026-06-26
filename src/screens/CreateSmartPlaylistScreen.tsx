@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SmartRule, SmartOperator } from '@appTypes/index';
+import { SmartRule, SmartOperator } from '@apptypes/index';
 import { databaseService } from '@services/database';
 import { useMusicStore } from '@store/musicStore';
 import { colors } from '../theme/colors';

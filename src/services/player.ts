@@ -1,6 +1,6 @@
 import TrackPlayer, { Capability, Event, RepeatMode as NativeRepeatMode, State, AppKilledPlaybackBehavior } from 'react-native-track-player';
 import MMKV from 'react-native-mmkv';
-import { PlaybackState, RepeatMode, Track } from '@appTypes/index';
+import { PlaybackState, RepeatMode, Track } from '@apptypes/index';
 import { appEventBus } from '../core/EventBus';
 const initialPlaybackState: PlaybackState = {
   status: 'idle',

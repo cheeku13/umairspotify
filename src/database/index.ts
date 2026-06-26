@@ -1,6 +1,6 @@
 import { SCHEMA_SQL } from './schema';
 
-const sqliteModule = require('react-native-quick-sqlite');
+const sqliteModule = require('@op-engineering/op-sqlite');
 const open: any = sqliteModule?.open ?? sqliteModule?.default?.open;
 
 let db: any = null;

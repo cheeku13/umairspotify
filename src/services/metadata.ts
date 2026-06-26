@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native';
-import { ExtractedMetadata, ImportCandidate, Track } from '@appTypes/index';
+import { ExtractedMetadata, ImportCandidate, Track } from '@apptypes/index';
 
 interface NativeMetadataBridge {
   extractMetadata: (filePath: string) => Promise<ExtractedMetadata>;

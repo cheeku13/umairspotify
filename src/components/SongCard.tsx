@@ -12,7 +12,7 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
-import { Track } from '@appTypes/index';
+import { Track } from '@apptypes/index';
 import { Heart, Download } from 'lucide-react-native';
 import { colors } from '../theme/colors';
 

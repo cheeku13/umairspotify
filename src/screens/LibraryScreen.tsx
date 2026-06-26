@@ -10,7 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useMusicStore } from '@store/musicStore';
-import { Track } from '@appTypes/index';
+import { Track } from '@apptypes/index';
 import { SongCard, SearchBar, AlbumCard, FolderList } from '@components/index';
 import { databaseService } from '../services/database';
 import { useDebounce } from '../hooks/useDebounce';

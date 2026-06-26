@@ -35,7 +35,7 @@ import {
   Pause,
   ChevronDown,
 } from 'lucide-react-native';
-import { SleepTimerModal, LyricsModal } from '@components/index';
+import { SleepTimerModal, LyricsModal, SongCard } from '@components/index';
 import { colors, shadows } from '../theme/colors';
 import { BlurView } from '@react-native-community/blur';
 
@@ -52,6 +52,10 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
     patchPlayback,
     toggleFavorite,
     sleepTimer,
+    setCurrentTrackId,
+    setIsPlaying,
+    setCurrentTime,
+    setRepeatMode,
   } = useMusicStore();
 
   const currentTrackId = playback.currentTrackId;
@@ -64,15 +68,18 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
   const queueTranslateY = useSharedValue(height);
   const artworkScale = useSharedValue(1);
 
-  const toggleShuffle = () => {
-    // TODO: implement shuffle toggle in store/queue service
+  const toggleShuffle = async () => {
+    const newQueue = await queueService.toggleShuffle();
+    // update store queue for UI responsiveness
+    useMusicStore.getState().setQueue(newQueue);
   };
 
-  const setRepeatMode = () => {
-    // TODO: implement repeat toggle in store/queue service
+  const setRepeatModeLocal = (mode: 'off' | 'one' | 'all') => {
+    // propagate to queue and playback
+    setRepeatMode(mode);
   };
 
-  const setCurrentTime = (time: number) => {
+  const _setCurrentTime = (time: number) => {
     patchPlayback({ positionMs: time });
   };
 
@@ -141,18 +148,18 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
   }, [setCurrentTime]);
 
   const handleToggleFavorite = useCallback(() => {
-    if (currentTrackId) {
-      toggleFavorite(currentTrackId);
+    if (currentTrackId && currentTrack) {
+      toggleFavorite(currentTrackId, !currentTrack.isFavorite);
     }
-  }, [currentTrackId, toggleFavorite]);
+  }, [currentTrackId, toggleFavorite, currentTrack]);
 
   const handleRepeatMode = useCallback(() => {
     const modes: Array<'off' | 'one' | 'all'> = ['off', 'one', 'all'];
     const currentMode = queue.repeatMode;
     const currentIndex = modes.indexOf(currentMode);
     const nextMode = modes[(currentIndex + 1) % modes.length];
-    setRepeatMode(nextMode);
-  }, [queue.repeatMode, setRepeatMode]);
+    setRepeatModeLocal(nextMode);
+  }, [queue.repeatMode, setRepeatModeLocal]);
 
   if (!currentTrack) {
     return (
@@ -163,7 +170,7 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
   }
 
   // Generate a pseudo-dynamic gradient based on track title length just for variation
-  const hue = (currentTrack.displayTitle.length * 15) % 360;
+  const hue = (currentTrack.title.length * 15) % 360;
   const topColor = `hsl(${hue}, 40%, 15%)`;
 
   return (
@@ -183,7 +190,7 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
           </TouchableOpacity>
           <View style={styles.headerTextContainer}>
             <Text style={styles.headerSubtitle}>PLAYING FROM ALBUM</Text>
-            <Text style={styles.headerTitle} numberOfLines={1}>{currentTrack.album || currentTrack.artist}</Text>
+            <Text style={styles.headerTitle} numberOfLines={1}>{currentTrack.albumTitle || currentTrack.artistName}</Text>
           </View>
           <TouchableOpacity style={styles.headerButton}>
             {/* Options button placeholder */}
@@ -241,7 +248,7 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
         {/* Main Controls */}
         <View style={styles.mainControls}>
           <TouchableOpacity onPress={() => toggleShuffle()} style={styles.controlButton}>
-            <Shuffle color={queue.shuffle ? colors.brand.primary : colors.text.secondary} size={24} />
+            <Shuffle color={queue.shuffleEnabled ? colors.brand.primary : colors.text.secondary} size={24} />
           </TouchableOpacity>
 
           <TouchableOpacity onPress={handlePreviousTrack} style={styles.controlButton}>

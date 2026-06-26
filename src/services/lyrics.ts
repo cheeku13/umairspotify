@@ -1,5 +1,5 @@
 import RNFS from 'react-native-fs';
-import { Track } from '@appTypes/index';
+import { Track } from '@apptypes/index';
 
 export interface LyricLine {
   timeMs: number;
