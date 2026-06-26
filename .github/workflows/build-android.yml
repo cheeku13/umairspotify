@@ -61,7 +61,6 @@ jobs:
       - name: Setup Gradle wrapper
         run: |
           cd android
-          gradle wrapper --gradle-version=8.0.1
           chmod +x gradlew
 
       - name: Build Release APK
