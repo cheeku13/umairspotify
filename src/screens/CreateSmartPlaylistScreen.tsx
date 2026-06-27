@@ -130,7 +130,7 @@ const CreateSmartPlaylistScreen: React.FC = () => {
                  />
               </View>
               <TouchableOpacity onPress={() => handleRemoveRule(index)} style={styles.removeButton}>
-                <Trash2 color={colors.system.error} size={20} />
+                <Trash2 color={colors.status.error} size={20} />
               </TouchableOpacity>
             </View>
           </View>

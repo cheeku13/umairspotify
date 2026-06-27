@@ -1,6 +1,6 @@
 jest.mock('@op-engineering/op-sqlite', () => ({
   open: jest.fn(() => ({
-    transaction: (callback: Function) => callback({ execute: jest.fn() }),
+    transaction: (callback: (tx: { execute: jest.Mock }) => void) => callback({ execute: jest.fn() }),
     execute: jest.fn()
   }))
 }));
@@ -29,7 +29,7 @@ describe('Database Performance and Integrity', () => {
         try {
           tx.execute('INSERT INTO tracks (id, source_id, file_uri, local_file_path, file_name, file_size_bytes, mime_type, title, sort_title, artist_id, artist_name, album_id, album_title, duration_ms, date_added, date_modified, import_status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
             [`id_${i}`, `src_${i}`, `file://${i}.mp3`, `/local/${i}.mp3`, `${i}.mp3`, 1000, 'audio/mpeg', `Song ${i}`, `song ${i}`, 'artist1', 'Artist 1', 'album1', 'Album 1', 180000, Date.now(), Date.now(), 'ready', Date.now(), Date.now()]);
-        } catch (e) {}
+        } catch (_e) { /* Native bindings unavailable in test env */ }
       }
     });
     

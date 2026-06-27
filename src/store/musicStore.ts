@@ -97,7 +97,7 @@ export const useMusicStore = create<MusicStore>(set => ({
   isPlaying: initialPlayback.status === 'playing',
   favorites: emptySnapshot.favoriteTracks,
   settings: defaultSettings,
-  sleepTimer: { active: false, endTime: null, stopAtEndOfTrack: false },
+  sleepTimer: { active: false, endTime: null, stopAtEndOfTrack: false, remainingMs: null },
   searchResults: null,
   setInitialized: initialized => set({ initialized }),
   setInitializationError: message => set({ initializationError: message }),
@@ -154,7 +154,7 @@ export const useMusicStore = create<MusicStore>(set => ({
     playlists: state.playlists.filter(playlist => playlist.id !== playlistId),
   })),
   setQueue: queue => set({ queue }),
-  setPlayback: playback => set(state => ({ playback, currentTrackId: playback.currentTrackId, isPlaying: playback.status === 'playing' })),
+  setPlayback: playback => set(_state => ({ playback, currentTrackId: playback.currentTrackId, isPlaying: playback.status === 'playing' })),
   patchPlayback: patch => set(state => {
     const next = { ...state.playback, ...patch };
     return { playback: next, currentTrackId: next.currentTrackId, isPlaying: next.status === 'playing' };
@@ -206,46 +206,4 @@ appEventBus.on('SleepTimerUpdated', (timer) => {
   useMusicStore.getState().setSleepTimer(timer);
 });
 
-// ─── TrackPlayer Event Bridge (auto-patched) ─────────────────────────────────
-// Ensures the Zustand store stays in sync with playback events.
-import TrackPlayer, { Event } from 'react-native-track-player';
 
-/**
- * Call this function once during app initialization (e.g., in App.tsx useEffect)
- * to wire TrackPlayer events into the Zustand store.
- */
-export function setupTrackPlayerEventBridge() {
-  TrackPlayer.addEventListener(Event.PlaybackState, (data) => {
-    const state = data.state;
-    useMusicStore.getState().setPlaybackState(state);
-  });
-
-  TrackPlayer.addEventListener(Event.PlaybackTrackChanged, (data) => {
-    if (data.track != null) {
-      useMusicStore.getState().setCurrentTrack(data.track);
-    }
-  });
-
-  TrackPlayer.addEventListener(Event.PlaybackQueueEnded, () => {
-    useMusicStore.getState().setPlaybackState('ended');
-  });
-}
-
-// ─── Sleep Timer State (auto-patched, L7) ────────────────────────────────────
-// Persists sleep timer configuration across app restarts via MMKV.
-interface SleepTimerState {
-  active: boolean;
-  endTime: number | null;       // Unix timestamp (ms) when timer fires
-  stopAtEndOfTrack: boolean;          // If true, pause at end of current track
-  remainingMs: number | null;   // Remaining time in ms (for display)
-}
-
-const initialSleepTimer: SleepTimerState = {
-  active: false,
-  endTime: null,
-  stopAtEndOfTrack: false,
-  remainingMs: null,
-};
-
-// Append sleep timer state and actions to the store
-// (These will be merged into the store's create() call)

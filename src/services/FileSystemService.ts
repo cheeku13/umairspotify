@@ -39,7 +39,7 @@ export class FileSystemService {
       fileName,
       fileSizeBytes: Number(stat.size),
       mimeType: 'audio/mpeg', // RNFS stat doesn't provide mime
-      dateModified: new Date(stat.mtime as any).getTime() || Date.now(),
+      dateModified: new Date(stat.mtime as unknown as string | number).getTime() || Date.now(),
     } as ImportCandidate;
   }
 

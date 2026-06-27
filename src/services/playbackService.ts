@@ -18,16 +18,16 @@ const playbackService = async () => {
   TrackPlayer.addEventListener(Event.RemoteSeek, (e) => TrackPlayer.seekTo(e.position));
 
   // Handle playback lifecycle events
-  TrackPlayer.addEventListener(Event.PlaybackQueueEnded, (e) => {
+  TrackPlayer.addEventListener(Event.PlaybackQueueEnded, (_e) => {
     // Queue finished — you may want to reset state, play next album, etc.
     // Update your Zustand store or emit EventBus event here.
   });
 
-  TrackPlayer.addEventListener(Event.PlaybackTrackChanged, (e) => {
+  TrackPlayer.addEventListener(Event.PlaybackTrackChanged, (_e) => {
     // Track changed — update current track in store, load lyrics, etc.
   });
 
-  TrackPlayer.addEventListener(Event.PlaybackState, (e) => {
+  TrackPlayer.addEventListener(Event.PlaybackState, (_e) => {
     // Playback state changed (playing, paused, buffering, etc.)
     // Update your Zustand store's isPlaying state here.
   });

@@ -46,7 +46,7 @@ const AnimatedSwitch = ({ value, onValueChange }: { value: boolean, onValueChang
   );
 };
 
-const SettingsScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+const SettingsScreen: React.FC<{ navigation: any }> = ({ navigation: _navigation }) => {
   const [storageProfile, setStorageProfile] = useState<StorageProfile>('balanced');
   const [backgroundPlayback, setBackgroundPlayback] = useState(true);
   const [lockScreenControls, setLockScreenControls] = useState(true);

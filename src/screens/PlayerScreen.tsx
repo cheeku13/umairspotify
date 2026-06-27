@@ -48,7 +48,6 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
     playback,
     queue,
     playTrack,
-    setPlayback,
     patchPlayback,
     toggleFavorite,
     sleepTimer,
@@ -72,15 +71,6 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
     const newQueue = await queueService.toggleShuffle();
     // update store queue for UI responsiveness
     useMusicStore.getState().setQueue(newQueue);
-  };
-
-  const setRepeatModeLocal = (mode: 'off' | 'one' | 'all') => {
-    // propagate to queue and playback
-    setRepeatMode(mode);
-  };
-
-  const _setCurrentTime = (time: number) => {
-    patchPlayback({ positionMs: time });
   };
 
   const currentTrack = tracks.find(t => t.id === currentTrackId);
@@ -147,19 +137,19 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
     setCurrentTime(value);
   }, [setCurrentTime]);
 
-  const handleToggleFavorite = useCallback(() => {
+  const handleToggleFavorite = () => {
     if (currentTrackId && currentTrack) {
       toggleFavorite(currentTrackId, !currentTrack.isFavorite);
     }
-  }, [currentTrackId, toggleFavorite, currentTrack]);
+  };
 
-  const handleRepeatMode = useCallback(() => {
+  const handleRepeatMode = () => {
     const modes: Array<'off' | 'one' | 'all'> = ['off', 'one', 'all'];
     const currentMode = queue.repeatMode;
     const currentIndex = modes.indexOf(currentMode);
     const nextMode = modes[(currentIndex + 1) % modes.length];
-    setRepeatModeLocal(nextMode);
-  }, [queue.repeatMode, setRepeatModeLocal]);
+    setRepeatMode(nextMode);
+  };
 
   if (!currentTrack) {
     return (
@@ -316,7 +306,7 @@ const PlayerScreen: React.FC<{ navigation: any; route: any }> = ({ navigation, r
               </TouchableOpacity>
             </View>
             <ScrollView contentContainerStyle={styles.queueList}>
-              {queue.trackIds.map((trackId, index) => {
+              {queue.trackIds.map((trackId, _index) => {
                 const track = tracks.find(t => t.id === trackId);
                 if (!track) return null;
                 return (

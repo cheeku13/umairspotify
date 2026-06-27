@@ -29,7 +29,7 @@ export class SearchService {
     // but this serves as the base logic for Phase 5.
     return {
       query: trimmed,
-      tracks: (res.rows?._array as any) || [],
+      tracks: (res.rows?._array as unknown as any) || [],
       albums: [],
       artists: [],
       playlists: [],

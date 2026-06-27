@@ -25,9 +25,9 @@ class MetadataService {
 
   sanitizeTitle(title: string): string {
     return title
-      .replace(/\s*[\[(]?official\s+(video|audio)[)\]]?\s*/gi, ' ')
-      .replace(/\s*[\[(]?lyric(s| video)?[)\]]?\s*/gi, ' ')
-      .replace(/\s*[\[(]?(hd|4k|visualizer|remastered)[)\]]?\s*/gi, ' ')
+      .replace(/\s*[[(]?official\s+(video|audio)[)\]]?\s*/gi, ' ')
+      .replace(/\s*[[(]?lyric(s| video)?[)\]]?\s*/gi, ' ')
+      .replace(/\s*[[(]?(hd|4k|visualizer|remastered)[)\]]?\s*/gi, ' ')
       .replace(/\s+/g, ' ')
       .trim();
   }

@@ -15,7 +15,7 @@ import { SongCard, SearchBar, AlbumCard, FolderList } from '@components/index';
 import { databaseService } from '../services/database';
 import { useDebounce } from '../hooks/useDebounce';
 import { LayoutGrid, List, ArrowDownUp, Filter, Plus, Folder as FolderIcon } from 'lucide-react-native';
-import { colors, shadows } from '../theme/colors';
+import { colors } from '../theme/colors';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 type SortBy = 'dateAdded' | 'title' | 'artist' | 'duration';
@@ -31,7 +31,7 @@ const LibraryScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [isGridMode, setIsGridMode] = useState(false);
   const [viewMode, setViewMode] = useState<'tracks' | 'folders'>('tracks');
   const [filteredAndSortedTracks, setFilteredAndSortedTracks] = useState<Track[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+
 
   const {
     tracks,
@@ -49,7 +49,7 @@ const LibraryScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     let mounted = true;
     
     const loadLibrary = async () => {
-      setIsLoading(true);
+
       try {
         const result = await databaseService.searchLibraryTracks(
           debouncedSearchQuery,
@@ -61,10 +61,6 @@ const LibraryScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         }
       } catch (error) {
         console.error('Failed to load library tracks', error);
-      } finally {
-        if (mounted) {
-          setIsLoading(false);
-        }
       }
     };
     
@@ -145,7 +141,7 @@ const LibraryScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     </View>
   );
 
-  const ListHeader = () => (
+  const renderListHeader = () => (
     <View style={styles.headerContainer}>
       <View style={styles.headerTopRow}>
         <Text style={styles.headerTitle}>My Library</Text>
@@ -226,7 +222,7 @@ const LibraryScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       {viewMode === 'folders' ? (
         <View style={{ flex: 1 }}>
-          <ListHeader />
+          {renderListHeader()}
           <FolderList onPlayTrack={(id) => {
             const track = tracks.find(t => t.id === id);
             if (track) handleTrackPress(track);
@@ -235,7 +231,7 @@ const LibraryScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       ) : (
         <FlatList
           key={isGridMode ? 'grid' : 'list'}
-          ListHeaderComponent={ListHeader}
+          ListHeaderComponent={renderListHeader}
           data={filteredAndSortedTracks}
           renderItem={renderItem}
           keyExtractor={item => item.id}

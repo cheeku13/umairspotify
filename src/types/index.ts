@@ -130,7 +130,8 @@ export interface PlaybackState {
 export interface SleepTimerState {
   active: boolean;
   endTime: number | null; // Timestamp when it should fire
-  stopAtEndOfTrack: boolean;
+  stopAtEndOfTrack: boolean; // If true, pause at end of current track
+  remainingMs: number | null; // Remaining time in ms for display
 }
 
 export interface SearchResult {

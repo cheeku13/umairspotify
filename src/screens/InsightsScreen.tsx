@@ -12,7 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { ListeningInsights, TopItem } from '@apptypes/index';
 import { databaseService } from '../services/database';
-import { metadataService } from '../services/metadata';
+
 import { colors, shadows } from '../theme/colors';
 import { BarChart3, Clock, Music2, Users, Flame, Trophy } from 'lucide-react-native';
 
@@ -43,7 +43,9 @@ const InsightsScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    loadInsights();
+    (async () => {
+      await loadInsights();
+    })();
   }, [loadInsights]);
 
   const onRefresh = useCallback(async () => {

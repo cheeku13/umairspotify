@@ -1,5 +1,5 @@
 import { Track, Album, Artist, Playlist, QueueState, SearchResult, Settings, LibrarySnapshot, ListeningInsights } from '@apptypes/index';
-import { initializeDatabase, getDatabase } from '../database';
+import { initializeDatabase } from '../database';
 import { container } from '../core/ServiceContainer';
 import { TrackRepository } from '../database/repositories/TrackRepository';
 import { AlbumRepository } from '../database/repositories/AlbumRepository';

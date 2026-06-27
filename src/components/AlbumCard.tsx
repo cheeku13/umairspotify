@@ -34,6 +34,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
   trackCount,
   onPress,
 }) => {
+  'use no memo';
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -41,10 +42,12 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
   }));
 
   const onPressIn = () => {
+    // eslint-disable-next-line react-hooks/immutability
     scale.value = withSpring(0.95, { damping: 15, stiffness: 200 });
   };
 
   const onPressOut = () => {
+    // eslint-disable-next-line react-hooks/immutability
     scale.value = withSpring(1, { damping: 15, stiffness: 200 });
   };
 

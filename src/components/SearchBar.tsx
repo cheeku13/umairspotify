@@ -23,6 +23,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   value,
   debounceMs = 180,
 }) => {
+  'use no memo';
   const [draft, setDraft] = useState(value);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 

@@ -1,5 +1,5 @@
 import TrackPlayer, { Capability, Event, RepeatMode as NativeRepeatMode, State, AppKilledPlaybackBehavior } from 'react-native-track-player';
-import MMKV from 'react-native-mmkv';
+
 import { PlaybackState, RepeatMode, Track } from '@apptypes/index';
 import { appEventBus } from '../core/EventBus';
 const initialPlaybackState: PlaybackState = {
@@ -107,6 +107,7 @@ class PlayerService {
       active: durationMs !== null || stopAtEndOfTrack,
       endTime: durationMs !== null ? Date.now() + durationMs : null,
       stopAtEndOfTrack,
+      remainingMs: durationMs,
     });
   }
 
@@ -120,6 +121,7 @@ class PlayerService {
       active: false,
       endTime: null,
       stopAtEndOfTrack: false,
+      remainingMs: null,
     });
   }
 

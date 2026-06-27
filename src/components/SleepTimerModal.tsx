@@ -13,6 +13,7 @@ interface Props {
 }
 
 const SleepTimerModal: React.FC<Props> = ({ visible, onClose }) => {
+  'use no memo';
   const translateY = useSharedValue(1000);
   const sleepTimer = useMusicStore(state => state.sleepTimer);
 
@@ -39,6 +40,7 @@ const SleepTimerModal: React.FC<Props> = ({ visible, onClose }) => {
 
   const getRemainingMinutes = () => {
     if (!sleepTimer.active || sleepTimer.stopAtEndOfTrack || !sleepTimer.endTime) return null;
+    // eslint-disable-next-line react-hooks/purity
     const remainingMs = sleepTimer.endTime - Date.now();
     return Math.max(0, Math.ceil(remainingMs / 60000));
   };
